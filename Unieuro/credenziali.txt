@@ -1,0 +1,6 @@
+Email di Gmail per inviare: InserireQui
+Password della email Gmail: InserireQui
+Email di Unieuro: InserireQui
+Password di Unieuro: InserireQui
+Email di Gmail a cui inviare: InserireQui 
+

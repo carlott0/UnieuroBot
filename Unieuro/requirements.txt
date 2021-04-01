@@ -1,0 +1,4 @@
+requests==2.25.0
+requests_html==0.10.0
+PyAutoGUI==0.9.52
+beautifulsoup4==4.9.3
