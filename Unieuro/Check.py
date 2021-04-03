@@ -40,7 +40,7 @@ def check_price(budget,link, email, pwd, gMailF, pwdMail, gMailT):
   from email.mime.multipart import MIMEMultipart
   from email.mime.text import MIMEText
   import smtplib
-
+  import sys
   
   user_agent_list = [
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Safari/605.1.15',
@@ -81,6 +81,11 @@ def check_price(budget,link, email, pwd, gMailF, pwdMail, gMailT):
 
   print(title.strip())
   print(price)
+  available=soup.find('div', class_='product-availability-mobile')
+
+  if available.text.strip() == "Non Disponibile":
+      print("Prodotto non disponibile ")
+      return "no"
 
   #converting the string amount to float
   converted_price = float(price[0:5])
@@ -129,7 +134,7 @@ def check_price(budget,link, email, pwd, gMailF, pwdMail, gMailT):
         else:
             print("Errore nell'accesso a unieuro")
             return "no"
-        
+        code=""
         response=(requests.get(link, headers=headers))
         soup=(BeautifulSoup(response.content, 'html.parser'))
         formRis=get_form_details(soup.find('form', id='inStockNotification'))
@@ -138,6 +143,7 @@ def check_price(budget,link, email, pwd, gMailF, pwdMail, gMailT):
         elif soup.find('a', class_='btn btn-orange-normal addtocart addToCartClick') is not None:
             code=soup.find('a', class_='btn btn-orange-normal addtocart addToCartClick')['data-sku']
         data = {}
+        
         for input_tag in formRis["inputs"]:
             if input_tag["type"] == "hidden":
                 # if it's hidden, use the default value
